@@ -1,0 +1,50 @@
+<?php
+
+use Drupal\contact\Entity\Message;
+
+/**
+ * Implements hook_mail_alter().
+ */
+function contact_conditional_recipients_mail_alter(&$message) {
+  if ($message['module'] === 'contact'
+    && isset($message['params']['contact_message'])) {
+    $override = contact_conditional_recipients_get_recipient_override($message['params']['contact_message']);
+    if ($override) {
+      $message['to'] = $override;
+    }
+  }
+}
+
+/**
+ * Determine the correct override recipient for a given message.
+ *
+ * @param \Drupal\contact\Entity\Message $message
+ *
+ * @return string
+ *   A CSV list of recipient(s) or ''.  If '' there is no override
+ *   associated with this message and whatever default should be used.
+ */
+function contact_conditional_recipients_get_recipient_override(Message $message): string {
+  $build = \Drupal::service('entity_type.manager')
+    ->getViewBuilder('contact_message')
+    ->view($message, 'contact_conditional_recipients');
+
+  return trim(strip_tags(\Drupal::service('renderer')
+    ->renderPlain($build)));
+}
+
+/**
+ * Return the fallback recipients for a given message.
+ *
+ * @param \Drupal\contact\Entity\Message $message
+ *
+ * @return string
+ *   A CSV list of recipient(s) as configured for the form.
+ */
+function contact_conditional_recipients_get_recipient_fallback(Message $message): string {
+  $contact_form = array_first($message->contact_form->referencedEntities());
+
+  return implode(',', $contact_form->getRecipients());
+}
+
+;
