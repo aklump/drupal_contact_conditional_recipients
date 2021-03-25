@@ -3,7 +3,7 @@ description: 'Provides conditional recipients to contact forms based on submitte
 package: 'In the Loft Studios'
 type: module
 core_version_requirement: '^8 || ^9'
-version: 8.x-0.0.1
+version: 8.x-0.0.2
 php: 7.3
 dependencies:
   - 'drupal:contact'
