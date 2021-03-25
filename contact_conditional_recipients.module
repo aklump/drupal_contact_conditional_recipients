@@ -46,5 +46,3 @@ function contact_conditional_recipients_get_recipient_fallback(Message $message)
 
   return implode(',', $contact_form->getRecipients());
 }
-
-;

@@ -9,13 +9,12 @@
  * Implements hook_install().
  */
 function contact_conditional_recipients_install() {
-  $entity_type_id = 'contact_message';
   $storage = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
   // Add a recipients view mode if it does not already exist.
-  if (!$storage->load("$entity_type_id.contact_conditional_recipients")) {
+  if (!$storage->load("contact_message.contact_conditional_recipients")) {
     $storage->create([
-      'targetEntityType' => $entity_type_id,
-      'id' => "$entity_type_id.contact_conditional_recipients",
+      'targetEntityType' => 'contact_message',
+      'id' => "contact_message.contact_conditional_recipients",
       'status' => TRUE,
       'label' => t('Conditional recipients'),
     ])->save();
