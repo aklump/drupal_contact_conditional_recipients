@@ -13,14 +13,16 @@ be based on the value of a submitted field (on that form).  For example if you h
 ## Configuration
 
 1. Create a contact form at _/admin/structure/contact/add_
-1. Enter the "default" recipient(s) in the normal _Recipients_ field.  This default will be used (as the email recipient(s)) if/when the selected, submitted value does not match any of your configured conditional emails.
+1. Enter the "default" recipient(s) in the normal _Recipients_ field.  This default will be used when the list value does not match a conditional email.
 1. Add a _List_ field with multiple values, the values of which will be used to
    determine the recipient.
-1. Visit _Manage display_ and enable _Conditional Recipients_ inside the _Custom Display
+1. Visit _Manage display_ and enable _Conditional recipients_ inside the _Custom Display
    Settings_ details element.
-1. Select the _Conditional Recipients_ display mode tab.
-1. Ensure the list field is not _Disabled_.
-1. Set it's _label_ to `- Hidden -`.
+1. Select the _Conditional recipients_ display mode tab.
+1. Ensure your list field is not _Disabled.
+1. Disable all other fields in this display mode.
+1. Set it's _Label_ to `- Hidden -`.
+1. Set it's _Format_ to `Recipients`.
 1. Open the settings and enter a pipe-separated map, which follows this
    pattern `value|recipient(s)`; use `[contact:recipients]` for the form's
    default recipient (entered when creating the new form). Otherwise hard-code
@@ -30,7 +32,7 @@ be based on the value of a submitted field (on that form).  For example if you h
     Website|foo@bar.org,[contact:recipients]
     Sales|alpha@zulu.gov,bravo@zulu.gov
     ```
-
+1. Be sure to _Save_ the Manage display.
 1. In this example, when the form is submitted and the chosen value is `Website`
    then the submission is delivered to `foo@bar.org` as well as the default
    recipients.
@@ -39,6 +41,7 @@ be based on the value of a submitted field (on that form).  For example if you h
 1. Finally, any other value that does not appear here will be delivered to the
    default recipients as configured at _
    /admin/structure/contact/manage/{form}_
+
 1. Configuration is complete.
 
 ## Advanced Configuration
